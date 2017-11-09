@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Apache Kudu의 특징과 테이블 관리 | 낭만디비술사</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="kudu,hadoop,kudu-impala,kudu partition" />
+    
+    <meta name="description" content="프로젝트에서 Kudu를 쓸 기회가 생겨서 간단하게 특징을 정리해보기로 하겠습니다. Cloudera 위에서 Kudu-Impala를 약간 써본 관계로, 전체적인 내용보다는 특징적인 부분만을 정리해보려고 합니다.   # Kudu의 특징 Apache Hadoop 플랫폼 환경에서 사용되는 Columnar 스토리지 엔진이다.     데이터웨어하우징 워크로드에서 유리함">
+<meta name="keywords" content="kudu,hadoop,kudu-impala,kudu partition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Kudu의 특징과 테이블 관리">
+<meta property="og:url" content="https://kalipso.github.io/2017/11/09/About-Apache-Kudu/index.html">
+<meta property="og:site_name" content="낭만디비술사">
+<meta property="og:description" content="프로젝트에서 Kudu를 쓸 기회가 생겨서 간단하게 특징을 정리해보기로 하겠습니다. Cloudera 위에서 Kudu-Impala를 약간 써본 관계로, 전체적인 내용보다는 특징적인 부분만을 정리해보려고 합니다.   # Kudu의 특징 Apache Hadoop 플랫폼 환경에서 사용되는 Columnar 스토리지 엔진이다.     데이터웨어하우징 워크로드에서 유리함">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://farm5.staticflickr.com/4582/37564317094_09c44cdb22_b.jpg">
+<meta property="og:updated_time" content="2017-11-09T08:21:43.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache Kudu의 특징과 테이블 관리">
+<meta name="twitter:description" content="프로젝트에서 Kudu를 쓸 기회가 생겨서 간단하게 특징을 정리해보기로 하겠습니다. Cloudera 위에서 Kudu-Impala를 약간 써본 관계로, 전체적인 내용보다는 특징적인 부분만을 정리해보려고 합니다.   # Kudu의 특징 Apache Hadoop 플랫폼 환경에서 사용되는 Columnar 스토리지 엔진이다.     데이터웨어하우징 워크로드에서 유리함">
+<meta name="twitter:image" content="http://farm5.staticflickr.com/4582/37564317094_09c44cdb22_b.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="낭만디비술사" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Application/">Application</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Database/">Database</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Database/kudu/">kudu</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Database/">Database</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Database/kudu/">kudu</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-About-Apache-Kudu" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Apache Kudu의 특징과 테이블 관리
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/09/About-Apache-Kudu/" class="article-date">
+            <time datetime="2017-11-09T08:20:21.000Z" itemprop="datePublished">2017-11-09</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hadoop/">hadoop</a>, <a class="tag-link" href="/tags/kudu/">kudu</a>, <a class="tag-link" href="/tags/kudu-partition/">kudu partition</a>, <a class="tag-link" href="/tags/kudu-impala/">kudu-impala</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>프로젝트에서 Kudu를 쓸 기회가 생겨서 간단하게 특징을 정리해보기로 하겠습니다. Cloudera 위에서 Kudu-Impala를 약간 써본 관계로, 전체적인 내용보다는 특징적인 부분만을 정리해보려고 합니다. </p>
+<p><img src="http://farm5.staticflickr.com/4582/37564317094_09c44cdb22_b.jpg" alt=""></p>
+<h2 id="Kudu의-특징"><a href="#Kudu의-특징" class="headerlink" title="# Kudu의 특징"></a># Kudu의 특징</h2><ul>
+<li>Apache Hadoop 플랫폼 환경에서 사용되는 <strong>Columnar 스토리지 엔진</strong>이다.    <ul>
+<li>데이터웨어하우징 워크로드에서 유리함</li>
+</ul>
+</li>
+<li>MapReduce, Spark 및 기타 Hadoop ecosystem 컴포넌트와 통합된다.</li>
+<li>엄격한 직렬화 일관성을 포함하여 일관성 유지를 위한 다양한 옵션을 제공한다.</li>
+<li>Raft Consensus 알고리즘을 사용하여 높은 가용성을 유지한다. 반수 이상의 Replica가 Available하다면 Tablet Server는 Read/Write를 수행할 수 있다.</li>
+<li>구조화된 모델(Structured Data Model)</li>
+</ul>
+<h2 id="Kudu의-구조"><a href="#Kudu의-구조" class="headerlink" title="# Kudu의 구조"></a># Kudu의 구조</h2><ul>
+<li><p><strong>Table</strong> : 데이터가 저장되는 공간. Table은 Schema 정렬된 Primary Key를 가진다. Table은 Tablet이라는 세그먼트로 분할된다.</p>
+</li>
+<li><p><strong>Tablet</strong> : Table의 연속 세그먼트. Tablet은 여러 Tablet Server에 ReplicaSet를 구성함</p>
+</li>
+<li><p><strong>Tablet Server</strong> : Tablet을 저장하고 클라이언트에 저장하는 역할을 한다. Raft Consensus 알고리즘을 사용하여 리더를 선출하고 읽기 혹은 쓰기 요청을 처리한다.</p>
+</li>
+<li><p><strong>Master</strong> : Tablet, Tablet Server, Catalog Table 및 클러스터와 관련한 Metadata를 가진다. 현재 Leader가 사라지면 Raft Consensus 알고리즘을 이용하여 새로운 Master가 선출된다.<br>또한 Master는 새로운 Table에 대한 metadata를 Catalog Table에 쓰거나 Tablet Server들에 Tablet을 생성하는 프로세스를 조정하는 등의 metadata 오퍼레이션을 수행한다.  </p>
+<p>Table Server들은 셋팅된 Interval에 따라 Master에 heartbeat를 전송한다.</p>
+</li>
+</ul>
+<p><img src="https://kudu.apache.org/docs/images/kudu-architecture-2.png" alt="3개의 Master가 있는 Kudu 클러스터"></p>
+<h2 id="Kudu-Impala-테이블-생성"><a href="#Kudu-Impala-테이블-생성" class="headerlink" title="# Kudu-Impala 테이블 생성"></a># Kudu-Impala 테이블 생성</h2><h4 id="Internal-amp-External-Impala-Table"><a href="#Internal-amp-External-Impala-Table" class="headerlink" title="Internal &amp; External Impala Table"></a>Internal &amp; External Impala Table</h4><ul>
+<li><p><strong>Internal</strong> : </p>
+<ul>
+<li>Impala에 의해 관리되며 </li>
+<li>Impala에서 삭제하면 데이터와 테이블이 완전 삭제됨. </li>
+<li>Impala를 사용하여 새 테이블을 만들면 일반적으로 내부 테이블</li>
+</ul>
+</li>
+<li><p><strong>External</strong> : </p>
+<ul>
+<li><p>Create External Table로 생성할 수 있으며</p>
+</li>
+<li><p>테이블을 삭제해도 Kudu에서 테이블이 삭제되지 않고, Impala와 Kudu 간 매핑만 제거함.</p>
+</li>
+<li><p>Kudu API 또는 Apache Spark 등에서 만들었을 경우 Impala에서 자동으로 표시되지 않기 때문에, 먼저 Impala에서 External 테이블을 만들어 Kudu 테이블과 Impala 데이터베이스를 매핑해야 함.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> my_mapping_table</div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU</div><div class="line">TBLPROPERTIES (</div><div class="line">  <span class="string">'kudu.table_name'</span> = <span class="string">'my_kudu_table'</span></div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Impala에서-새로운-Kudu-테이블-만들기"><a href="#Impala에서-새로운-Kudu-테이블-만들기" class="headerlink" title="Impala에서 새로운 Kudu 테이블 만들기"></a>Impala에서 새로운 Kudu 테이블 만들기</h4><ul>
+<li><p><strong>테이블 생성</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--일반적인 생성구문</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> my_first_table</div><div class="line">(</div><div class="line">  <span class="keyword">id</span> <span class="built_in">BIGINT</span>,</div><div class="line">  <span class="keyword">name</span> <span class="keyword">STRING</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>)</div><div class="line">)</div><div class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">HASH</span> <span class="keyword">PARTITIONS</span> <span class="number">16</span></div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU;</div><div class="line"></div><div class="line"><span class="comment">-- CTAS</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> new_table</div><div class="line">PRIMARY <span class="keyword">KEY</span> (ts, <span class="keyword">name</span>)</div><div class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">HASH</span>(<span class="keyword">name</span>) <span class="keyword">PARTITIONS</span> <span class="number">8</span></div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU</div><div class="line"><span class="keyword">AS</span> <span class="keyword">SELECT</span> ts, <span class="keyword">name</span>, <span class="keyword">value</span> <span class="keyword">FROM</span> old_table;</div></pre></td></tr></table></figure>
+<p>※ Kudu는 현재 (2017.11) 자동/수동 Sharding 매커니즘이 없기 때문에, 테이블을 만들 때 <code>partition by</code> 절을 이용하여 분할 Key를 지정해야 한다.</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="파티션-설정"><a href="#파티션-설정" class="headerlink" title="파티션 설정"></a>파티션 설정</h4><ul>
+<li><p><code>PARTITION BY RANGE</code> : 범위 파티션을 지정할 수 있으며, 아래와 같이 사용함.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> cust_behavior (</div><div class="line">  _id <span class="built_in">BIGINT</span> PRIMARY <span class="keyword">KEY</span>,</div><div class="line">  salary <span class="keyword">STRING</span>,</div><div class="line">  edu_level <span class="built_in">INT</span>,</div><div class="line">  usergender <span class="keyword">STRING</span>,</div><div class="line">  <span class="string">`group`</span> <span class="keyword">STRING</span>,</div><div class="line">  city <span class="keyword">STRING</span>,</div><div class="line">  postcode <span class="keyword">STRING</span>,</div><div class="line">  last_purchase_price <span class="built_in">FLOAT</span>,</div><div class="line">  last_purchase_date <span class="built_in">BIGINT</span>,</div><div class="line">  <span class="keyword">category</span> <span class="keyword">STRING</span>,</div><div class="line">  sku <span class="keyword">STRING</span>,</div><div class="line">  rating <span class="built_in">INT</span>,</div><div class="line">  fulfilled_date <span class="built_in">BIGINT</span></div><div class="line">)</div><div class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span> (_id)</div><div class="line">(</div><div class="line">    <span class="keyword">PARTITION</span> <span class="keyword">VALUES</span> &lt; <span class="number">1439560049342</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439560049342</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="number">1439566253755</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439566253755</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="number">1439572458168</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439572458168</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="number">1439578662581</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439578662581</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="number">1439584866994</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439584866994</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="number">1439591071407</span>,</div><div class="line">    <span class="keyword">PARTITION</span> <span class="number">1439591071407</span> &lt;= <span class="keyword">VALUES</span></div><div class="line">)</div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>PARTITION BY HASH</code> : HASH 값으로 파티셔닝하며, column을 지정하지 않으면 모든 기본 키 열을 해싱하여 원하는 수의 버킷을 생성할 수 있다.</p>
+<blockquote>
+<p>값이 단조롭게 증가하는 열에서 범위별로 파티션을 나누면 마지막 Tablet이 다른 테이블보다 훨씬 커지므로 주의할 것.</p>
+</blockquote>
+</li>
+<li><p><code>PARTITION BY HASH</code> and <code>RANGE</code> : 다음과 같은 형태로 복합 파티션 키를 설정할 수 있음.</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> cust_behavior (</div><div class="line">  <span class="keyword">id</span> <span class="built_in">BIGINT</span>,</div><div class="line">  sku <span class="keyword">STRING</span>,</div><div class="line">  salary <span class="keyword">STRING</span>,</div><div class="line">  edu_level <span class="built_in">INT</span>,</div><div class="line">  usergender <span class="keyword">STRING</span>,</div><div class="line">  <span class="string">`group`</span> <span class="keyword">STRING</span>,</div><div class="line">  city <span class="keyword">STRING</span>,</div><div class="line">  postcode <span class="keyword">STRING</span>,</div><div class="line">  last_purchase_price <span class="built_in">FLOAT</span>,</div><div class="line">  last_purchase_date <span class="built_in">BIGINT</span>,</div><div class="line">  <span class="keyword">category</span> <span class="keyword">STRING</span>,</div><div class="line">  rating <span class="built_in">INT</span>,</div><div class="line">  fulfilled_date <span class="built_in">BIGINT</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>, sku)</div><div class="line">)</div><div class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">HASH</span> (<span class="keyword">id</span>) <span class="keyword">PARTITIONS</span> <span class="number">4</span>,</div><div class="line"><span class="keyword">RANGE</span> (sku)</div><div class="line">(</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUES</span> &lt; <span class="string">'g'</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="string">'g'</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="string">'o'</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="string">'o'</span> &lt;= <span class="keyword">VALUES</span> &lt; <span class="string">'u'</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="string">'u'</span> &lt;= <span class="keyword">VALUES</span></div><div class="line">)</div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Non-Covering Range Partitions : Kudu 1.0 이상에서 다음과 같은 Range 파티션을 만들 수 있다. </p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> sales_by_year (</div><div class="line">  <span class="keyword">year</span> <span class="built_in">INT</span>, sale_id <span class="built_in">INT</span>, amount <span class="built_in">INT</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (sale_id, <span class="keyword">year</span>)</div><div class="line">)</div><div class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span> (<span class="keyword">year</span>) (</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2012</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2013</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2014</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2015</span>,</div><div class="line">  <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2016</span></div><div class="line">)</div><div class="line"><span class="keyword">STORED</span> <span class="keyword">AS</span> KUDU;</div></pre></td></tr></table></figure>
+<p>  이 테이블은 2017이 되면 입력이 거부되기 때문에, 다음과 같이 range가 추가되어야 한다.</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> sales_by_year <span class="keyword">ADD</span> <span class="keyword">RANGE</span> <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2017</span>;</div></pre></td></tr></table></figure>
+<p>  마찬가지로, range partition은 drop될 수 있다.</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> sales_by_year <span class="keyword">ADD</span> <span class="keyword">RANGE</span> <span class="keyword">PARTITION</span> <span class="keyword">VALUE</span> = <span class="number">2017</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="테이블-속성-변경"><a href="#테이블-속성-변경" class="headerlink" title="테이블 속성 변경"></a>테이블 속성 변경</h4><ul>
+<li><p>Internal 테이블인 경우, <code>kudu.table_name</code>속성을 변경하여 기본 Kudu 테이블 이름 변경</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_internal_table</div><div class="line"><span class="keyword">SET</span> TBLPROPERTIES(<span class="string">'kudu.table_name'</span> = <span class="string">'new_name'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>다른 응용 프로그램이 Impala에서 Kudu 테이블의 이름을 바꾼 경우 외부 테이블 다시 매핑</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_external_table_</div><div class="line"><span class="keyword">SET</span> TBLPROPERTIES(<span class="string">'kudu.table_name'</span> = <span class="string">'some_other_kudu_table'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Kudu Master 주소 변경</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_table</div><div class="line"><span class="keyword">SET</span> TBLPROPERTIES(<span class="string">'kudu.master_addresses'</span> = <span class="string">'kudu-new-master.example.com:7051'</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>Internal -&gt; External로 변경</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> my_table <span class="keyword">SET</span> TBLPROPERTIES(<span class="string">'EXTERNAL'</span> = <span class="string">'TRUE'</span>);</div></pre></td></tr></table></figure>
+<p>​## 참고</p>
+</li>
+</ul>
+<hr>
+<p>Introducing Apache Kudu(<a href="https://kudu.apache.org/docs/" target="_blank" rel="external">https://kudu.apache.org/docs/</a>)</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://kalipso.github.io/2017/11/09/About-Apache-Kudu/" data-id="cj9s7h4tj0008gss85azz5y6d" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100001073378858" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/kalipso" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/11/08/how-to-make-hexo-blog-on-github-page/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Github Page에 Hexo 블로그 만들기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Application/">Application</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Database/">Database</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Database/kudu/">kudu</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kudu/">kudu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kudu-partition/">kudu partition</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kudu-impala/">kudu-impala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/블로그-만들기/">블로그 만들기</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kudu/" style="font-size: 10px;">kudu</a> <a href="/tags/kudu-partition/" style="font-size: 10px;">kudu partition</a> <a href="/tags/kudu-impala/" style="font-size: 10px;">kudu-impala</a> <a href="/tags/블로그-만들기/" style="font-size: 10px;">블로그 만들기</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/09/About-Apache-Kudu/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://farm5.staticflickr.com/4582/37564317094_09c44cdb22_b.jpg)" alt="Apache Kudu의 특징과 테이블 관리" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Database/">Database</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Database/kudu/">kudu</a></p>
+                            <p class="item-title"><a href="/2017/11/09/About-Apache-Kudu/" class="title">Apache Kudu의 특징과 테이블 관리</a></p>
+                            <p class="item-date"><time datetime="2017-11-09T08:20:21.000Z" itemprop="datePublished">2017-11-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/08/how-to-make-hexo-blog-on-github-page/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://farm5.staticflickr.com/4573/38204775206_4a6d29f021_m.jpg)" alt="Github Page에 Hexo 블로그 만들기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Application/">Application</a></p>
+                            <p class="item-title"><a href="/2017/11/08/how-to-make-hexo-blog-on-github-page/" class="title">Github Page에 Hexo 블로그 만들기</a></p>
+                            <p class="item-date"><time datetime="2017-11-08T08:02:10.000Z" itemprop="datePublished">2017-11-08</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 kalipso</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://kalipso.github.io/2017/11/09/About-Apache-Kudu/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
