@@ -29,14 +29,28 @@
 
     <url>
         <loc>https://kalipso.github.io/categories/Application/</loc>
-        <lastmod>2017-11-10T06:45:32.537Z</lastmod>
+        <lastmod>2017-11-10T08:49:01.448Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://kalipso.github.io/categories/Application/Scala/</loc>
-        <lastmod>2017-11-10T06:45:32.537Z</lastmod>
+        <lastmod>2017-11-10T08:49:01.448Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/categories/Diary/</loc>
+        <lastmod>2017-11-18T15:25:42.329Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/categories/Diary/%ED%83%9C%EA%B5%90%EC%9D%BC%EA%B8%B0/</loc>
+        <lastmod>2017-11-18T15:25:42.329Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
