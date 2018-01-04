@@ -72,14 +72,14 @@
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/tags/%EC%9E%84%EC%8B%A0-16%EC%A3%BC/</loc>
+        <loc>https://kalipso.github.io/tags/%EC%84%B1%EB%B3%84%EA%B5%AC%EB%B6%84/</loc>
         <lastmod>2017-11-18T15:27:06.177Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/tags/%EC%84%B1%EB%B3%84%EA%B5%AC%EB%B6%84/</loc>
+        <loc>https://kalipso.github.io/tags/%EC%9E%84%EC%8B%A0-16%EC%A3%BC/</loc>
         <lastmod>2017-11-18T15:27:06.177Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -151,6 +151,34 @@
     <url>
         <loc>https://kalipso.github.io/tags/%EC%A7%80%EC%A4%91%ED%95%B4%EB%A7%88%EC%9D%84/</loc>
         <lastmod>2017-12-18T17:26:48.371Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/Spark-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1/</loc>
+        <lastmod>2018-01-04T14:46:41.805Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/Scala-IDE/</loc>
+        <lastmod>2018-01-04T14:46:41.805Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/WordCount/</loc>
+        <lastmod>2018-01-04T14:46:41.805Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/Scala/</loc>
+        <lastmod>2018-01-04T14:46:41.805Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

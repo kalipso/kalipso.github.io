@@ -3,22 +3,28 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tag: 태동 | 낭만디비술사</title>
+    <title>Scala-IDE에서 Spark 셋팅과 WordCount | 낭만디비술사</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="kalipso의 IT/일상 블로그">
-<meta property="og:type" content="website">
-<meta property="og:title" content="낭만디비술사">
-<meta property="og:url" content="https://kalipso.github.io/tags/태동/index.html">
-<meta property="og:site_name" content="낭만디비술사">
-<meta property="og:description" content="kalipso의 IT/일상 블로그">
-<meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="낭만디비술사">
-<meta name="twitter:description" content="kalipso의 IT/일상 블로그">
+        <meta name="keywords" content="Spark 개발환경 구성,Scala IDE,WordCount,Scala" />
     
-    <link rel="canonical" href="https://kalipso.github.io/tags/태동/"/>
+    <meta name="description" content="# Spark 개발환경 셋팅의외로 친절하게 정리된 글이 없어서 Window 10 환경에서 Spark의 개발환경을 잡는 일이 쉽지 않았는데, 한 외국 블로거의 글을 따라하고 성공했습니다. Scala-IDE로 개발환경을 잡고 Spark의 “Hello World”이라 할 수 있는 WordCount를 실행해보도록 하겠습니다.  Apache Spark는 하둡 기반의">
+<meta name="keywords" content="Spark 개발환경 구성,Scala IDE,WordCount,Scala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala-IDE에서 Spark 셋팅과 WordCount">
+<meta property="og:url" content="https://kalipso.github.io/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/index.html">
+<meta property="og:site_name" content="낭만디비술사">
+<meta property="og:description" content="# Spark 개발환경 셋팅의외로 친절하게 정리된 글이 없어서 Window 10 환경에서 Spark의 개발환경을 잡는 일이 쉽지 않았는데, 한 외국 블로거의 글을 따라하고 성공했습니다. Scala-IDE로 개발환경을 잡고 Spark의 “Hello World”이라 할 수 있는 WordCount를 실행해보도록 하겠습니다.  Apache Spark는 하둡 기반의">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://farm5.staticflickr.com/4582/37805855144_391f390b07_o.png">
+<meta property="og:updated_time" content="2018-01-04T14:46:41.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala-IDE에서 Spark 셋팅과 WordCount">
+<meta name="twitter:description" content="# Spark 개발환경 셋팅의외로 친절하게 정리된 글이 없어서 Window 10 환경에서 Spark의 개발환경을 잡는 일이 쉽지 않았는데, 한 외국 블로거의 글을 따라하고 성공했습니다. Scala-IDE로 개발환경을 잡고 Spark의 “Hello World”이라 할 수 있는 WordCount를 실행해보도록 하겠습니다.  Apache Spark는 하둡 기반의">
+<meta name="twitter:image" content="https://farm5.staticflickr.com/4582/37805855144_391f390b07_o.png">
+    
+    <link rel="canonical" href="https://kalipso.github.io/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/"/>
 
     
         <link rel="alternate" href="/feed.xml" title="낭만디비술사" type="application/atom+xml" />
@@ -137,73 +143,188 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>Tag: <em>태동</em>
+    <a class="page-title-link" href="/categories/Application/">Application</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Application/Spark/">Spark</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-Setup-Spark-in-ScalaIDE-and-WordCount-example" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2017/12/10/papa-diary-pregnant-19w/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://farm5.staticflickr.com/4556/38442609966_4f95203307_m.jpg)" alt="［태교일기］ 임신 19주 4일" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="https://kalipso.github.io/2017/12/10/papa-diary-pregnant-19w/">0</span>
-    
-</span>
-
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Diary/태교일기/">태교일기</a>
-            </div>
-            <div class="date"><time datetime="2017-12-10T12:30:07.000Z" itemprop="datePublished">2017-12-10</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2017/12/10/papa-diary-pregnant-19w/">［태교일기］ 임신 19주 4일</a>
+        Scala-IDE에서 Spark 셋팅과 WordCount
         </h1>
     
 
-        <p class="article-excerpt">
-            2017.12.10(일)정신없는 시간들이었다. 11월에 새로운 프로젝트에 투입되었고, 2군데의 산후조리원을 예약한 뒤 하나를 취소했다. 12월 1일에는 아파트 옆동으로 이사를 했고, 그 날 저녁 아버지는 소장 쪽에 꽤 큰 수술을 하셨다.  혼자 일기를 쓰면서 변명을 하는 것도 우습지만, 이제 막 시작한 블로그가 한동안 뜸했던 것이 용두사미처럼 흐지부지 되는
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/" class="article-date">
+            <time datetime="2018-01-04T14:45:05.000Z" itemprop="datePublished">2018-01-04</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Scala/">Scala</a>, <a class="tag-link" href="/tags/Scala-IDE/">Scala IDE</a>, <a class="tag-link" href="/tags/Spark-개발환경-구성/">Spark 개발환경 구성</a>, <a class="tag-link" href="/tags/WordCount/">WordCount</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="Spark-개발환경-셋팅"><a href="#Spark-개발환경-셋팅" class="headerlink" title="# Spark 개발환경 셋팅"></a># Spark 개발환경 셋팅</h2><p>의외로 친절하게 정리된 글이 없어서 Window 10 환경에서 Spark의 개발환경을 잡는 일이 쉽지 않았는데, <a href="http://www.devinline.com/2016/01/apache-spark-setup-in-eclipse-scala-ide.html" target="_blank" rel="external">한 외국 블로거의 글</a>을 따라하고 성공했습니다. Scala-IDE로 개발환경을 잡고 Spark의 “Hello World”이라 할 수 있는 WordCount를 실행해보도록 하겠습니다.</p>
+<blockquote>
+<p>Apache Spark는 하둡 기반의 데이터 처리 프레임워크인 Map-Reduce가 가진 단점들을 보완하기 위하여 2009년 UC Berkeley 대학의 연구로 시작되어 2012년 미국 NSDI 학회에서 RDD(Resilient Distributed Dataset) 논문이 발표되면서 알려진 기술입니다. </p>
+<p>스파크는 하둡과 달리 <u>메모리를 이용한 데이터 저장 방식</u>을 제공함으로써 머신러닝 등 반복적인 데이터 처리가 필요한 분야에서 높은 성능을 보여줍니다. 또한 강력한 데이터 처리 함수를 제공하여 프로그램의 복잡도를 크게 낮춰줍니다. </p>
+<p>2016년 11월 Spark 2.0 버전이 출시되었는데, 이는 Spark 1.x 보다 10배 정도 향상된 처리 속도를 보여준다고 합니다. 또한 Java, Scala, Python 뿐 아니라 분석 환경에서 많이 사용되고 있는 R스크립트를 이용해서도 Application을 작성할 수 있게 되었습니다.</p>
+</blockquote>
+<h4 id="1-Scala-IDE-다운로드"><a href="#1-Scala-IDE-다운로드" class="headerlink" title="1. Scala IDE 다운로드"></a>1. Scala IDE 다운로드</h4><p> Scala IDE는 Scala, 혹은 Scala-Java 혼합 Application의 개발환경을 제공하는 eclipse project입니다. <a href="http://scala-ide.org" target="_blank" rel="external">http://scala-ide.org</a> 를 방문하여 IDE를 Download하고 install합니다. 2017년 11월 현재 최신 Release는 4.7.0(이 글을 마무리하게 된 시기는 2018년 1월입니다만 버전은 동일합니다)네요.</p>
+<p><img src="https://farm5.staticflickr.com/4537/37710863985_e2588309b4.jpg" alt="Scala IDE for eclipse"></p>
+<p>압축을 풀고 설치를 마무리한 후, eclipse를 엽니다. </p>
+<blockquote>
+<p>이유는 알 수 없으나 eclipse가 간혹 An error has occurred. See the log file<br>C:\dev\workspace\scala.metadata.log. 라는 에러 메시지를 뱉습니다. 로그를 확인해보면 <u>java.lang.AssertionError: assertion failed</u>라는 에러가 보이는데, workspace의 .metadata.plugins\org.eclipse.e4.workbench\workbench.xmi 파일을 삭제하면 해결됩니다.</p>
+</blockquote>
+<h4 id="2-maven-project-생성"><a href="#2-maven-project-생성" class="headerlink" title="2. maven project 생성"></a>2. maven project 생성</h4><p>Maven은 가장 인기있는 Library 관리 및 빌드 툴 중 하나입니다. 이 예제에서는 Maven을 통해 프로젝트를 생성합니다. </p>
+<ol>
+<li><p><strong>File -&gt; New -&gt; Project -&gt; Maven Project</strong>를 선택하여 프로젝트를 생성합니다.  예제에서는 Group Id는 io.github.kalipso.spark로, Artifact Id는 Spark Sample로 지정하였습니다. </p>
+<p>​</p>
+<p><img src="https://farm5.staticflickr.com/4551/37710863595_00d6c6dbb0_z.jpg" alt=""></p>
+<p>​</p>
+<p><img src="https://farm5.staticflickr.com/4547/38599065561_c278aa5350_z.jpg" alt=""></p>
+<p>​</p>
+</li>
+<li><p><a href="https://drive.google.com/file/d/15_QoyH0YIG5UKzSpbPqsWQzC-3LGDPIf/view?usp=sharing" target="_blank" rel="external">pom.xml Sample</a> 을 다운로드하고 SparkSample 프로젝트 Root에 위치한 pom.xml을 수정합니다. </p>
+</li>
+<li><p>Project에서 오른쪽 마우스 버튼을 클릭, <strong>Configure -&gt; Add Scala Nature</strong> 을 선택하여 Scala Nature를 추가합니다. </p>
+</li>
+<li><p>Spark를 위한 Scala Compiler를 선택합니다. Scala IDE는 기본적으로  <code>Lastest 2.12 bundle (dynamic)</code>을 사용하고 있으나 Spark는 2.10을 사용하기 때문에,  Compiler를 변경해주어야 합니다.<br>Project에서 오른쪽 마우스 버튼을 클릭, <strong>Properties -&gt; Scala compiler</strong>에서 <code>Fixed Scala Installation: 2.10.6 (built-in)</code> 을 선택합니다. </p>
+<p>​</p>
+<p><img src="https://farm5.staticflickr.com/4635/24629943397_4586f00db1_z.jpg" alt=""></p>
+<p>​</p>
+</li>
+<li><p>Source 폴더를 <strong>src/main/java</strong>에서 <strong>src/main/scala</strong>로 변경합니다.  해당 폴더에서 오른쪽 마우스 버튼 클릭 -&gt; Refactor -&gt; Rename을 선택하여  scaca로 변경합니다.</p>
+<blockquote>
+<p>project에 에러표시가 있다면 Project 오른쪽 마우스버튼 클릭 -&gt; Maven -&gt; Update Project를 선택하여 해당 프로젝트의 Maven Update를 수행하면 필요한 라이브러리 다운로드 및 빌드를 통해 에러가 없어집니다. </p>
+</blockquote>
+</li>
+</ol>
+<h4 id="3-WordCount-프로그램"><a href="#3-WordCount-프로그램" class="headerlink" title="3. WordCount 프로그램"></a>3. WordCount 프로그램</h4><ol>
+<li><p>src/main/scala 밑에 패키지를 생성하고, scala Object를 생성합니다. </p>
+<p>​</p>
+<p><img src="https://farm5.staticflickr.com/4638/39497161721_e7df408a36.jpg" alt=""></p>
+<p>​</p>
+<p><img src="https://farm5.staticflickr.com/4684/39497161701_0a380ec2bf.jpg" alt=""></p>
+<p>​</p>
+</li>
+<li><p>WordCount.scala를 아래와 같이 구성합니다.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> io.github.kalipso.spark</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></div><div class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkContext</span></div><div class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">RDD</span>.rddToPairRDDFunctions</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCount</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) = &#123;</div><div class="line"></div><div class="line">    <span class="comment">//Start the Spark context</span></div><div class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</div><div class="line">      .setAppName(<span class="string">"WordCount"</span>)</div><div class="line">      .setMaster(<span class="string">"local"</span>)</div><div class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</div><div class="line"></div><div class="line">    <span class="comment">//Read some example file to a test RDD</span></div><div class="line">    <span class="keyword">val</span> test = sc.textFile(<span class="string">"src/main/shakespeare.txt"</span>)</div><div class="line"></div><div class="line">    test.flatMap &#123; line =&gt; <span class="comment">//for each line</span></div><div class="line">      line.split(<span class="string">" "</span>) <span class="comment">//split the line in word by word.</span></div><div class="line">    &#125;</div><div class="line">      .map &#123; word =&gt; <span class="comment">//for each word</span></div><div class="line">        (word, <span class="number">1</span>) <span class="comment">//Return a key/value tuple, with the word as key and 1 as value</span></div><div class="line">      &#125;</div><div class="line">      .reduceByKey(_ + _) <span class="comment">//Sum all of the value with same key</span></div><div class="line">      .saveAsTextFile(<span class="string">"output.txt"</span>) <span class="comment">//Save to a text file</span></div><div class="line"></div><div class="line">    <span class="comment">//Stop the Spark context</span></div><div class="line">    sc.stop</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p><a href="https://drive.google.com/file/d/1Mfxp1R3TtJzAnjIb3Ix_Corl0YSeOaI_/view?usp=sharing" target="_blank" rel="external">Text Sample</a>을 다운받아서 위에서 지정한 것처럼 src/main 하단에 복사합니다.  </p>
+</li>
+<li><p>WordCount 프로그램을 동작합니다. WordCount.scala 오른쪽 마우스 버튼 클릭 -&gt; Run as -&gt; Scala Application을 선택하여 동작시킬 수 있습니다. </p>
+</li>
+</ol>
+<p>위 소스의 대략적인 로직을 그림으로 표현해보면 아래와 같습니다.</p>
+<p><img src="https://farm5.staticflickr.com/4688/24630076017_15143cd250_o.png" alt=""></p>
+<p>정상적인 상황이라면, 프로그램은 output.txt라는 Directory 안에 아래와 같은 2개의 파일을 만들겁니다.</p>
+<ul>
+<li>SUCCESS</li>
+<li>part-00000</li>
+</ul>
+<p>part-00000 안에는 다음과 같은 결과들이 저장됩니다. </p>
+<p>(fartuous,1)<br>(hem,1)<br>(meets,,1)<br>(toll,,1)<br>(melody?,1)<br>(it!-,3)<br>(tough,6)<br>(briefly,,7)</p>
+<p>이상 Window 10 환경에서의 Spark 개발환경 구성 및 WordCount 예제를 살펴보았습니다~</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="http://www.devinline.com/2016/01/apache-spark-setup-in-eclipse-scala-ide.html" target="_blank" rel="external">Setup Apache Spark in eclipse(Scala IDE) : Word count example using Apache spark in Scala IDE</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://kalipso.github.io/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/" data-id="cjc0lwc8r0001uws8ctm6pusu" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
+
+    <section id="comments">
     
-        </div>
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
     
-
-
-    </div></section>
-
+    </section>
 
 
                         </div>
@@ -240,6 +361,19 @@ ga('send', 'pageview');
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/12/19/travel-diary-cheonan-201712/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">당일치기 천안여행 (feat.알쓸신잡)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -437,11 +571,13 @@ ga('send', 'pageview');
     var disqus_shortname = 'hexo-theme-hueman';
     
     
+    var disqus_url = 'https://kalipso.github.io/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
