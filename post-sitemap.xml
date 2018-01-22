@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>https://kalipso.github.io/2018/01/23/start-newspaper-subscription/</loc>
+        <lastmod>2018-01-22T17:37:22.390Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/2017/12/19/travel-diary-cheonan-201712/</loc>
+        <lastmod>2018-01-19T13:18:50.792Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kalipso.github.io/2018/01/08/papa-diary-pregnant-23w/</loc>
         <lastmod>2018-01-07T16:49:28.720Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,14 +33,6 @@
     <url>
         <loc>https://kalipso.github.io/2018/01/04/Setup-Spark-in-ScalaIDE-and-WordCount-example/</loc>
         <lastmod>2018-01-04T14:46:41.805Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://kalipso.github.io/2017/12/19/travel-diary-cheonan-201712/</loc>
-        <lastmod>2017-12-18T17:26:48.371Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

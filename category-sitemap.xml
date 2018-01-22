@@ -35,13 +35,6 @@
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/categories/Diary/%EC%97%AC%ED%96%89/</loc>
-        <lastmod>2017-12-18T17:26:48.371Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://kalipso.github.io/categories/Application/</loc>
         <lastmod>2018-01-04T14:46:41.805Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -56,15 +49,22 @@
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/categories/Diary/</loc>
+        <loc>https://kalipso.github.io/categories/Diary/%ED%83%9C%EA%B5%90%EC%9D%BC%EA%B8%B0/</loc>
         <lastmod>2018-01-07T16:49:28.720Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/categories/Diary/%ED%83%9C%EA%B5%90%EC%9D%BC%EA%B8%B0/</loc>
-        <lastmod>2018-01-07T16:49:28.720Z</lastmod>
+        <loc>https://kalipso.github.io/categories/Diary/</loc>
+        <lastmod>2018-01-19T13:18:50.792Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/categories/Diary/%EC%9D%BC%EC%83%81-%EC%97%AC%ED%96%89/</loc>
+        <lastmod>2018-01-19T13:18:50.792Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
