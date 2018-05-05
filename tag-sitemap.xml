@@ -212,7 +212,7 @@
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/tags/%ED%83%9C%EA%B5%90%EC%9D%BC%EA%B8%B0/</loc>
+        <loc>https://kalipso.github.io/tags/%EB%98%A5%EA%B8%80%EC%9D%B4/</loc>
         <lastmod>2018-02-15T16:03:33.398Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -226,8 +226,29 @@
     </url>
 
     <url>
-        <loc>https://kalipso.github.io/tags/%EB%98%A5%EA%B8%80%EC%9D%B4/</loc>
-        <lastmod>2018-02-15T16:03:33.398Z</lastmod>
+        <loc>https://kalipso.github.io/tags/%ED%83%9C%EA%B5%90%EC%9D%BC%EA%B8%B0/</loc>
+        <lastmod>2018-05-05T16:48:36.659Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/%EC%9D%B4%EB%A6%84%EC%A7%93%EA%B8%B0/</loc>
+        <lastmod>2018-05-05T16:48:36.659Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/%ED%83%9C%EC%95%84%EC%9E%91%EB%AA%85/</loc>
+        <lastmod>2018-05-05T16:48:36.659Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://kalipso.github.io/tags/%EC%B6%9C%EC%83%9D%EC%8B%A0%EA%B3%A0/</loc>
+        <lastmod>2018-05-05T16:48:36.659Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
